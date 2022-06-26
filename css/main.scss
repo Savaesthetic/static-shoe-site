@@ -1,0 +1,303 @@
+/* Remember to watch for sass using button on bottom hotbar */
+/* Use Mobile First Paradigm to first develop for mobile devices 
+    before scaling up detail for desktop devices. */
+body{
+    /* Em is relative sizing. Use in locations such as margin or padding. */
+    margin: 1.5em;
+    /* Can force users to download font by importing into css file or linking in html file. */
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    /* Removes underline from all links. */
+    text-decoration: none;
+    /* Rem is relative to root element (HTML tag) while em is relative to parent element */
+    font-size: 1.3rem;
+}
+
+.hero-img {
+    position: absolute;
+    /* Used with position absolute to place elemnt relative to parent */
+    top: 0;
+    left: 0;
+    /* If we want to use an image rather than a color we have to reference it through the url */
+    background: url('../images/redShoe.jpg');
+    /* Scales the image but keeps its h*w ratio to fit in container */
+    background-size: cover;
+    /* Sets the initial horizontal/vertical position for the image. */
+    background-position-x: 20%;
+    background-position-y: 20%;
+    width: 100%;
+    /* vh stand for viewport height so the height that is visible on the users screen */
+    height: 100vh;
+    /* Places elements on specific layers so they can be in front of or behind other layers. */
+    z-index: -1;
+    animation: introLoad 2s forwards;
+}
+
+.logo {
+    color: white;
+    font-weight: bold;
+}
+
+nav {
+    /* Can use display none to completely remove from box layout but not necessarily what we want. */
+    //display: none;
+    /* Element will always stay in the same spot on the users screen even while scrolling. */
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: white;
+    height: 100vh;
+    width: 50%;
+    z-index: 999;
+    /* Converts all text inside element into uppercase */
+    text-transform: uppercase;
+    /* Tranform modifies the space of the element so translateX moves the elment along the x axis by the percentage of its width. 
+        This effectively moving it off the screen since its placed on the right side.*/
+    transform: translateX(100%);
+    /* Animation for moving the navbar onto the screen when button is clicked. */
+    transition: transform .5s ease-in-out;
+
+    ul {
+        /* Removes the dot styling from list elements */
+        list-style-type: none;
+        padding: 0;
+        margin-top: 8em;
+
+        a {
+            color: black;
+            /* Top and bottom and left and right values. */
+            padding: .75em 2em;
+            /* Display must be set to block in order for link values to be padded. */
+            display: block;
+            width: 100%;
+
+            /* When cursor hovers use this ruleset */
+            &:hover {
+                background: rgb(223, 223, 223);
+            }
+        }
+    }
+
+    .close {
+        float: right;
+        margin: 2em;
+        width: 2.5em;
+    }
+}
+
+header {
+    display: flex;
+    /* Even spacing between elemnts inside container with first element all the way to the left and last element all the way to the right. */
+    justify-content: space-between;
+
+    /* Nesting css elements using sass functionaliy. Following css will only apply to svg elements inside header elements. */
+    svg {
+        width: 2.3em;
+        margin-top: -.6em;
+        /* Sets cursor to pointer on hover over element. */
+        cursor: pointer;
+    }
+}
+
+h1 {
+    font-size: 3rem;
+    margin-top: 2em;
+    line-height: 3.3rem;
+}
+
+
+.subhead {
+    font-size: 1.4rem;
+}
+
+section.hero {
+    color: white;
+    height: 90vh;
+    animation: moveDown 1s ease-in-out forwards;
+    opacity: 0;
+
+    .down-arrow {
+        stroke: white;
+        position: absolute;
+        bottom: 2em;
+        width: 1em;
+        animation: moveArrow 1s alternate-reverse infinite;
+        path {
+            fill: white;
+        }
+    }
+}
+
+.more-info {
+    img {
+        width: 100%;
+        /* Kind of like a snapshot. Rather than scale the image to fit the height requirement we simply grab a snapshot of the image. */
+        object-fit: cover;
+        height: 11em;
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    .description {
+        line-height: 1.5rem;
+    }
+}
+
+
+.open-nav {
+    transform: translateX(0%);
+}
+
+/* Media query that dictates that the following css should only apply when the screen width is >= 680px */
+/* This size might make sense for tables */
+@media only screen and (min-width: 680px) {
+    body {
+        margin: 1.5em 5em;
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+/* This size might make sense for desktops */
+@media only screen and (min-width: 920px) {
+    /* Hides the hamburger icon for the nav bar since we don't need it for desktop sized windows */
+    .menu {
+        display: none;
+    }
+
+    /* Have to overwite rules for mobile application */
+    nav {
+        transform: translateX(0);
+        position: unset;
+        display: block;
+        width: auto;
+        height: auto;
+        background: none;
+
+        
+        svg.close {
+            display: none;
+        }
+
+        ul {
+            display: flex;
+            margin: 0;
+
+            a {
+                color: white;
+                padding: .5em 1.5em;
+                font-size: .9rem;
+
+                &:hover {
+                    background: none;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .hero-img {
+        left: unset;
+        right: 0;
+        width: 50%;
+        height: 42em;
+    }
+
+    .logo {
+        color: black;
+
+        span {
+            color: red;
+        }
+    }
+
+    section.hero {
+        color: black;
+        height: auto;
+        width: 40%;
+        margin-bottom: 8em;
+
+        svg.down-arrow {
+            stroke: black;
+            position: unset;
+
+            path {
+                fill: black;
+            }
+        }
+    }
+
+    .feature {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 3em;
+        margin-bottom: 8em;
+
+        img {
+            width: 25em;
+        }
+
+        .content {
+            text-align: right;
+            width: 25em;
+        }
+    }
+
+    .feature.flipped {
+        grid-template-areas: "left right";
+
+        img {
+            grid-area: left;
+        }
+
+        .content {
+            text-align: left;
+            width: 25em;
+            justify-self: left;
+        }
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .wrapper {
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature {
+        gap: 0;
+    }
+}
+
+@keyframes introLoad {
+    /*  Used css clippy to get glip path */
+    from {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes moveArrow {
+    from {
+        transform: translateY(-30px);
+    }
+    to {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes moveDown {
+    from {
+        transform: translateY(-100px);
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
